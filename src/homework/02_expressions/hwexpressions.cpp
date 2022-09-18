@@ -1,5 +1,5 @@
-#include "expressions.h"
-
+#include "hwexpressions.h"
+const double tax_rate = .0675;
 //example
 int add_numbers(int num1, int num2)
 {
@@ -7,6 +7,20 @@ int add_numbers(int num1, int num2)
 }
 
 //write function code here
+
+double get_sales_tax_amount(double meal_amount)
+{
+double result = tax_rate * meal_amount;
+return result; 
+}
+
+double get_tip_amount(double meal_amount, double tip_rate)
+{ 
+double result = meal_amount*tip_rate;
+return result; 
+}
+
+
 
 
 
