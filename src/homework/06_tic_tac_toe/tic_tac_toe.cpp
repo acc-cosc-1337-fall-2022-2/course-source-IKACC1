@@ -24,11 +24,14 @@ string TicTacToe::get_player()const
 void TicTacToe::display_board()const
   {
     for(int i=0; i<9; i++)
-    {   if (i==3||i==6)
-           {std::cout<<"\n";}
-        std::cout<<pegs[i];
-        if(i!=2&&i!=5&&i!=8)
-            std::cout<<"|";
+    {   
+      if (i==3||i==6)
+           {
+             std::cout<<"\n";
+           }
+      std::cout<<pegs[i];
+      if(i!=2&&i!=5&&i!=8)
+          std::cout<<"|";
     }
     }
   void TicTacToe::set_next_player()
@@ -55,5 +58,62 @@ void TicTacToe::display_board()const
 
   bool TicTacToe::game_over()
   {
-      return check_board_full();
+    bool return_value;
+    if ( check_column_win()==true|| check_row_win()==true||check_diagonal_win()==true)
+      {
+        set_winner();
+        return_value= true;
+      }
+  else if(check_board_full()==true)
+   {
+      winner="C";
+      return_value= true;
+   }
+   else if (check_board_full()!=true)
+    return_value= false;
+  return return_value;
   }
+string TicTacToe::get_winner()
+{
+return winner;
+}
+bool TicTacToe::check_column_win()
+{
+  bool return_value=false;
+  if((pegs[0]=="X"&&pegs[3]=="X"&&pegs[6]=="X")||(pegs[0]=="O"&&pegs[3]=="O"&&pegs[6]=="O"))
+    return_value= true;
+  else if((pegs[1]=="X"&&pegs[4]=="X"&&pegs[7]=="X")||(pegs[1]=="O"&&pegs[4]=="O"&&pegs[7]=="O"))
+    return_value= true;
+  else if((pegs[2]=="X"&&pegs[5]=="X"&&pegs[8]=="X")||(pegs[2]=="O"&&pegs[5]=="O"&&pegs[8]=="O"))
+    return_value= true;
+  return return_value;
+}
+
+bool TicTacToe::check_row_win()
+{
+  bool return_value=false;
+  if((pegs[0]=="X"&&pegs[1]=="X"&&pegs[2]=="X")||(pegs[0]=="O"&&pegs[1]=="O"&&pegs[2]=="O"))
+    return_value= true;
+  else if((pegs[3]=="X"&&pegs[4]=="X"&&pegs[5]=="X")||(pegs[3]=="O"&&pegs[4]=="O"&&pegs[5]=="O"))
+    return_value= true;
+  else if((pegs[6]=="X"&&pegs[7]=="X"&&pegs[8]=="X")||(pegs[6]=="O"&&pegs[7]=="O"&&pegs[8]=="O"))
+    return_value= true;
+  return return_value;
+}
+bool TicTacToe::check_diagonal_win()
+{
+  bool return_value=false;
+  if((pegs[0]=="X"&&pegs[4]=="X"&&pegs[8]=="X")||(pegs[0]=="O"&&pegs[4]=="O"&&pegs[8]=="O"))
+    return_value= true;
+  else if((pegs[6]=="X"&&pegs[4]=="X"&&pegs[2]=="X")||(pegs[6]=="O"&&pegs[4]=="O"&&pegs[2]=="O"))
+    return_value= true;
+  return return_value;
+}
+
+void TicTacToe::set_winner()
+{
+  if (player=="X")
+    winner="O";
+  else 
+  winner ="X";
+}
