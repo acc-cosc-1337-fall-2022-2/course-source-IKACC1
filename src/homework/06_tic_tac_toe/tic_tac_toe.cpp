@@ -21,19 +21,6 @@ string TicTacToe::get_player()const
     return TicTacToe::player;
 }
 
-void TicTacToe::display_board()const
-  {
-    for(int i=0; i<9; i++)
-    {   
-      if (i==3||i==6)
-           {
-             std::cout<<"\n";
-           }
-      std::cout<<pegs[i];
-      if(i!=2&&i!=5&&i!=8)
-          std::cout<<"|";
-    }
-    }
   void TicTacToe::set_next_player()
   {
     if(TicTacToe::player=="X")
@@ -117,3 +104,41 @@ void TicTacToe::set_winner()
   else 
   winner ="X";
 }
+std::ostream& operator<<(std::ostream& out, const TicTacToe& game)
+{
+  //...display board overload..................................................
+      for(int i=0; i<9; i++)
+    {   
+      if (i==3||i==6)
+           {
+             std::cout<<"\n";
+           }
+      std::cout<<game.pegs[i];
+      if(i!=2&&i!=5&&i!=8)
+          std::cout<<"|";
+    }
+  return out;
+}
+std::istream& operator>>(std::istream& in, TicTacToe& game)
+    {
+    Position_Loop:int position;//will loop to here for bad input.
+    std::cout<<"\n What position do you wish to play? Choose 1-9:\t";
+		std::cin>>position;
+		std::cin.clear();
+		std::cin.sync();
+		//input validation: if input not in proper range get new input.
+		if (position!=1 && position!=2 && position!=3 && position!=4 && position!=5 && position!=6 && position!=7 && position!=8 && position!=9)
+		{
+			std::cout<<"\nPlease enter a single digit number between 1 & 9 to play\n";
+			goto Position_Loop;
+		}
+	if ((game.pegs[(position-1)])=="X"||(game.pegs[(position-1)]=="O"))
+					{
+						std::cout<<"You can't play that position-- someone already did.";
+						goto Position_Loop;
+					}
+		//move has passed validation. add to board moves.
+		game.mark_board(position);
+
+      return in;
+    }
