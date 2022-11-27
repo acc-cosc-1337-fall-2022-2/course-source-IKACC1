@@ -11,6 +11,7 @@ using std::make_unique;
 TEST_CASE("Verify Test Configuration", "verification") {
 	REQUIRE(true == true);
 }
+//note: tests will update save game file with test games when run.
 
 TEST_CASE("Test first player set to X")
 {
